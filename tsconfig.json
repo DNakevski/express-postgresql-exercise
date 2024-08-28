@@ -23,7 +23,17 @@
     "noEmit": true,
     "resolveJsonModule": true,
     "typeRoots": ["./node_modules/@types"],
-    "baseUrl": "."
+    "baseUrl": ".",
+    "paths": {
+      "@admin": ["src/admin"],
+      "@admin/*": ["src/admin/*"],
+      "@standard-user": ["src/standard-user"],
+      "@standard-user/*": ["src/standard-user/*"],
+      "@middleware": ["src/middleware"],
+      "@middleware/*": ["src/middleware/*"],
+      "@schemas": ["src/schemas"],
+      "@schemas/*": ["src/schemas/*"]
+    }
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]

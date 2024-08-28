@@ -6,8 +6,8 @@ import {
   getParkingBooking,
   putParkingBooking,
 } from "./controllers/parking-booking-controller";
-import { validateRequest } from "../middleware/validationMiddleware";
-import { addBookingSchema, putBookingSchema } from "../schemas/bookingSchema";
+import { validateRequest } from "@middleware/validationMiddleware";
+import { addBookingSchema, putBookingSchema } from "@schemas/bookingSchema";
 
 const router = Router();
 

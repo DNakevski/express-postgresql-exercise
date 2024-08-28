@@ -1,7 +1,8 @@
+import "module-alias/register";
 import express, { Request, Response, NextFunction } from "express";
 import bodyParser from "body-parser";
-import adminRoutes from "./admin/admin-routes";
-import userRoutes from "./standard-user/standard-user-routes";
+import adminRoutes from "@admin/admin-routes";
+import userRoutes from "@standard-user/standard-user-routes";
 
 const app = express();
 const port = process.env.PORT || 3000;
