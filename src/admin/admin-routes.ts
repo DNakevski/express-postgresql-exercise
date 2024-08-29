@@ -6,8 +6,9 @@ import {
   getParkingBooking,
   putParkingBooking,
 } from "./controllers/parking-booking-controller";
-import { validateRequest } from "@middleware/validationMiddleware";
-import { addBookingSchema, putBookingSchema } from "@schemas/bookingSchema";
+import { validateRequest } from "@middleware/validation-middleware";
+import { addBookingSchema, putBookingSchema } from "@schemas/booking-schema";
+import { verifyUserAuth } from "@middleware/auth-middleware";
 
 const router = Router();
 
@@ -23,6 +24,9 @@ router.use((req: Request, res: Response, next: NextFunction) => {
 
   next();
 });
+
+// Add the authentication middleware
+router.use(verifyUserAuth());
 
 // base route for parking bookings
 const PARKING_BOOKINGS_BASE_ROUTE = "/parking-bookings/";

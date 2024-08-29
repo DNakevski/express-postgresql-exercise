@@ -22,7 +22,7 @@
     "strictPropertyInitialization": false,
     "noEmit": true,
     "resolveJsonModule": true,
-    "typeRoots": ["./node_modules/@types"],
+    "typeRoots": ["./src/@types", "./node_modules/@types"],
     "baseUrl": ".",
     "paths": {
       "@admin": ["src/admin"],
@@ -32,7 +32,9 @@
       "@middleware": ["src/middleware"],
       "@middleware/*": ["src/middleware/*"],
       "@schemas": ["src/schemas"],
-      "@schemas/*": ["src/schemas/*"]
+      "@schemas/*": ["src/schemas/*"],
+      "@services": ["src/services"],
+      "@services/*": ["src/services/*"]
     }
   },
   "include": ["src/**/*.ts"],

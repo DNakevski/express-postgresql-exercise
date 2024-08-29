@@ -1,7 +1,11 @@
 import { Request, Response, NextFunction } from "express";
 import { StatusCodes } from "http-status-codes";
 import { z, ZodError } from "zod";
-
+/**
+ * Validates the request body depending depending on a match with a given zod schema
+ * @param schema zod schema
+ * @returns error or next()
+ */
 export function validateRequest(schema: z.ZodObject<any, any>) {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
