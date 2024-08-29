@@ -16,7 +16,7 @@ export interface Booking {
 export const addBookingSchema = z.object({
   startDateTime: z.string().datetime(),
   endDateTime: z.string().datetime(),
-  parkingSpot: z.string(),
+  parkingSpot: z.number(),
 });
 
 // zod schema for validating the schema when booking is being updated
