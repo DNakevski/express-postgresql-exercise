@@ -10,15 +10,15 @@ export function verifyUserAuth() {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       if (!req.headers.authorization) {
-        return res.sendStatus(StatusCodes.FORBIDDEN);
+        return res.sendStatus(StatusCodes.UNAUTHORIZED);
       }
 
       const token = extractToken(req.headers.authorization);
       const user = await getUserByToken(token);
 
-      // in case user with the specified token is not found, return 401 status code
+      // in case user with the specified token is not found, return 403 status code
       if (!user) {
-        return res.sendStatus(StatusCodes.UNAUTHORIZED);
+        return res.sendStatus(StatusCodes.FORBIDDEN);
       }
       req.currentUser = user;
       next();

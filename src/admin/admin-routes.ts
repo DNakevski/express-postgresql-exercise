@@ -9,6 +9,7 @@ import {
 import { validateRequest } from "@middleware/validation-middleware";
 import { addBookingSchema, putBookingSchema } from "@schemas/booking-schema";
 import { verifyUserAuth } from "@middleware/auth-middleware";
+import { ensureAdmin } from "@middleware/ensure-admin-middleware";
 
 const router = Router();
 
@@ -26,7 +27,7 @@ router.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 // Add the authentication middleware
-router.use(verifyUserAuth());
+router.use(verifyUserAuth(), ensureAdmin());
 
 // base route for parking bookings
 const PARKING_BOOKINGS_BASE_ROUTE = "/parking-bookings/";
