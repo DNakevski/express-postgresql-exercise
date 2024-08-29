@@ -2,11 +2,11 @@ import { z } from "zod";
 
 // represents the general structure of a booking
 export interface Booking {
-  id: string;
-  createdByUser: string;
+  id: number;
+  createdByUser: number;
   startDateTime: Date;
   endDateTime: Date;
-  parkingSpot: string;
+  parkingSpot: number;
   createdAt: Date;
   updatedAt: Date;
 }

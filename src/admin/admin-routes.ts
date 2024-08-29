@@ -26,7 +26,7 @@ router.use((req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
-// Add the authentication middleware
+// Add the authentication and admin permissions middlewares
 router.use(verifyUserAuth(), ensureAdmin());
 
 // base route for parking bookings
