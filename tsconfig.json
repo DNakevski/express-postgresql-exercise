@@ -34,7 +34,9 @@
       "@schemas": ["src/schemas"],
       "@schemas/*": ["src/schemas/*"],
       "@services": ["src/services"],
-      "@services/*": ["src/services/*"]
+      "@services/*": ["src/services/*"],
+      "@utils": ["src/utils"],
+      "@utils/*": ["src/utils/*"]
     }
   },
   "include": ["src/**/*.ts"],
