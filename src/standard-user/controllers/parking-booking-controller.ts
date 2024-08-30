@@ -8,7 +8,7 @@ import {
 } from "@services/parking-booking-service";
 import { RequestHandler } from "express";
 import { addBookingSchema, putBookingSchema } from "@schemas/booking-schema";
-import { StatusCodes } from "http-status-codes";
+import { ActionNotAuthorizedError } from "@utils/Errors";
 
 export const getAllParkingBookings: RequestHandler = async (req, res, next) => {
   try {
@@ -21,15 +21,11 @@ export const getAllParkingBookings: RequestHandler = async (req, res, next) => {
 export const getParkingBooking: RequestHandler = async (req, res, next) => {
   try {
     const id = parseInt(req.params.id);
-
     const booking = await getBookingById(id);
-    if (!booking) {
-      res.status(404).send("Booking with the specified id was not found!");
-    }
 
     // verify that this is current user's booking
     if (booking?.createdByUser !== req.currentUser.id) {
-      res.status(StatusCodes.FORBIDDEN).send("Action not authorized");
+      throw new ActionNotAuthorizedError("Action not authorized");
     }
 
     res.json(booking);
@@ -59,17 +55,11 @@ export const addParkingBooking: RequestHandler = async (req, res, next) => {
 export const putParkingBooking: RequestHandler = async (req, res, next) => {
   try {
     const id = parseInt(req.params.id);
-
     const booking = await getBookingById(id);
-    if (!booking) {
-      return res
-        .status(404)
-        .send("Booking with the specified id was not found!");
-    }
 
     // verify that this is current user's booking
     if (booking?.createdByUser !== req.currentUser.id) {
-      res.status(StatusCodes.FORBIDDEN).send("Action not authorized");
+      throw new ActionNotAuthorizedError("Action not authorized");
     }
 
     const putObject = req.body as z.infer<typeof putBookingSchema>;
@@ -97,15 +87,11 @@ export const putParkingBooking: RequestHandler = async (req, res, next) => {
 export const deleteParkingBooking: RequestHandler = async (req, res, next) => {
   try {
     const id = parseInt(req.params.id);
-
     const booking = await getBookingById(id);
-    if (!booking) {
-      res.status(404).send("Booking with the specified id was not found!");
-    }
 
     // verify that this is current user's booking
     if (booking?.createdByUser !== req.currentUser.id) {
-      res.status(StatusCodes.FORBIDDEN).send("Action not authorized");
+      throw new ActionNotAuthorizedError("Action not authorized");
     }
 
     await deleteBooking(id);

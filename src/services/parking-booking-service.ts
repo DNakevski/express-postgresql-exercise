@@ -1,5 +1,6 @@
 import { Booking } from "@schemas/booking-schema";
 import pool from "../db";
+import { ResourceNotFoundError } from "@utils/Errors";
 
 /**
  * Returns all bookings from database
@@ -20,22 +21,22 @@ export async function getAllBookings(): Promise<Booking[]> {
  * @param bookingId
  * @returns Booking
  */
-export async function getBookingById(
-  bookingId: number
-): Promise<Booking | null> {
+export async function getBookingById(bookingId: number): Promise<Booking> {
   const result = await pool.query(`SELECT * FROM "Booking" WHERE id = $1`, [
     bookingId,
   ]);
 
   if (!result.rowCount) {
-    return null;
+    throw new ResourceNotFoundError(
+      "Booking with the specified id was not found"
+    );
   }
 
   return dbRowToBooking(result.rows[0]);
 }
 
 /**
- * Returns all bookings from database
+ * Returns all bookings from database for a given user
  * @returns Booking[]
  */
 export async function getAllBookingsForUser(
@@ -99,6 +100,9 @@ export async function editBooking(booking: Booking): Promise<void> {
  * @param id: Id of the booking
  */
 export async function deleteBooking(id: number): Promise<void> {
+  // will throw an error if booking doesn't exist
+  await getBookingById(id);
+
   await pool.query(`DELETE FROM "Booking" WHERE id = $1`, [id]);
 }
 

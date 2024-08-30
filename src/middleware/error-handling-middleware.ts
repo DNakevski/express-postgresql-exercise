@@ -1,7 +1,4 @@
-import {
-  OperationNotAuthorizedError,
-  ResourceNotFoundError,
-} from "@utils/Errors";
+import { ActionNotAuthorizedError, ResourceNotFoundError } from "@utils/Errors";
 import { Request, Response, NextFunction } from "express";
 import { StatusCodes } from "http-status-codes";
 
@@ -12,7 +9,7 @@ export function handleErrorResponse() {
 
     if (err instanceof ResourceNotFoundError) {
       res.status(StatusCodes.NOT_FOUND).send(err.message);
-    } else if (err instanceof OperationNotAuthorizedError) {
+    } else if (err instanceof ActionNotAuthorizedError) {
       res.status(StatusCodes.FORBIDDEN).send(err.message);
     } else {
       res

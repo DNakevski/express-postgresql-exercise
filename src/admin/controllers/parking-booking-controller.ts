@@ -20,13 +20,7 @@ export const getAllParkingBookings: RequestHandler = async (req, res, next) => {
 export const getParkingBooking: RequestHandler = async (req, res, next) => {
   try {
     const id = parseInt(req.params.id);
-
-    const booking = await getBookingById(id);
-    if (!booking) {
-      res.status(404).send("Booking with the specified id was not found!");
-    } else {
-      res.json(booking);
-    }
+    res.json(await getBookingById(id));
   } catch (error) {
     next(error);
   }
@@ -54,27 +48,24 @@ export const putParkingBooking: RequestHandler = async (req, res, next) => {
   try {
     const id = parseInt(req.params.id);
     const booking = await getBookingById(id);
-    if (!booking) {
-      res.status(404).send("Booking with the specified id was not found!");
-    } else {
-      const putObject = req.body as z.infer<typeof putBookingSchema>;
-      booking.startDateTime =
-        putObject.startDateTime !== undefined
-          ? new Date(putObject.startDateTime)
-          : booking.startDateTime;
-      booking.endDateTime =
-        putObject.endDateTime !== undefined
-          ? new Date(putObject.endDateTime)
-          : booking.endDateTime;
-      booking.parkingSpot =
-        putObject.parkingSpot !== undefined
-          ? putObject.parkingSpot
-          : booking.parkingSpot;
-      booking.updatedAt = new Date();
 
-      await editBooking(booking);
-      res.status(200).send("Booking successfully edited");
-    }
+    const putObject = req.body as z.infer<typeof putBookingSchema>;
+    booking.startDateTime =
+      putObject.startDateTime !== undefined
+        ? new Date(putObject.startDateTime)
+        : booking.startDateTime;
+    booking.endDateTime =
+      putObject.endDateTime !== undefined
+        ? new Date(putObject.endDateTime)
+        : booking.endDateTime;
+    booking.parkingSpot =
+      putObject.parkingSpot !== undefined
+        ? putObject.parkingSpot
+        : booking.parkingSpot;
+    booking.updatedAt = new Date();
+
+    await editBooking(booking);
+    res.status(200).send("Booking successfully edited");
   } catch (error) {
     next(error);
   }
@@ -83,13 +74,8 @@ export const putParkingBooking: RequestHandler = async (req, res, next) => {
 export const deleteParkingBooking: RequestHandler = async (req, res, next) => {
   try {
     const id = parseInt(req.params.id);
-    const booking = await getBookingById(id);
-    if (!booking) {
-      res.status(404).send("Booking with the specified id was not found!");
-    } else {
-      await deleteBooking(id);
-      res.status(200).send("Booking successfully deleted");
-    }
+    await deleteBooking(id);
+    res.status(200).send("Booking successfully deleted");
   } catch (error) {
     next(error);
   }

@@ -5,7 +5,7 @@ export class ResourceNotFoundError extends Error {
   }
 }
 
-export class OperationNotAuthorizedError extends Error {
+export class ActionNotAuthorizedError extends Error {
   constructor(message: string) {
     super(message);
     this.name = "OperationNotAuthorizedError";
