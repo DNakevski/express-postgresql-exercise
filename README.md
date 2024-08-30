@@ -37,6 +37,7 @@ The entire codebase is located in the `src` folder, which includes several subfo
 - **`@types`**: Contains custom declaration types. In our case, it includes an extension of the **Request** type from Express.
 - **`middleware`**: Contains all the middleware functions used in the Express routing pipeline, including middleware for authentication, validation, error handling, etc.
 - **`pg-infrastructure`**: Contains the `docker-compose` file for PostgreSQL and pgAdmin4, as well as the SQL script for initializing the database with data.
+- **`postman`**: Contains the Postaman collection schemas for testing the endpoints locally.
 - **`schemas`**: Contains the schemas for the entities used in the code.
 - **`services`**: Contains the service logic. In our case, this includes only the booking service, which is responsible for interacting with the database. No additional business logic is implemented here.
 - **`utils`**: Contains utility functions used within the codebase. Currently, it only includes custom error handlers.
