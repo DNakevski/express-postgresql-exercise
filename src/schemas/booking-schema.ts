@@ -26,5 +26,5 @@ export const addBookingSchema = z.object({
 export const putBookingSchema = z.object({
   startDateTime: z.string().datetime().optional(),
   endDateTime: z.string().datetime().optional(),
-  parkingSpot: z.string().optional(),
+  parkingSpot: z.number().optional(),
 });

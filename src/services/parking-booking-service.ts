@@ -63,13 +63,14 @@ export async function createBooking(
  */
 export async function editBooking(booking: Booking): Promise<void> {
   await pool.query(
-    `UPDATED "Booking" SET created_by_user = $1, start_date_time = $2, end_date_time = $3, parking_spot = $4, updated_at = $5 WHERE id = $6`[
-      (booking.createdByUser,
+    `UPDATE "Booking" SET created_by_user = $1, start_date_time = $2, end_date_time = $3, parking_spot = $4, updated_at = $5 WHERE id = $6`,
+    [
+      booking.createdByUser,
       booking.startDateTime,
       booking.endDateTime,
       booking.parkingSpot,
       booking.updatedAt,
-      booking.id)
+      booking.id,
     ]
   );
 }

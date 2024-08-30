@@ -55,7 +55,7 @@ export const putParkingBooking: RequestHandler = async (req, res) => {
         : booking.endDateTime;
     booking.parkingSpot =
       putObject.parkingSpot !== undefined
-        ? parseInt(putObject.parkingSpot)
+        ? putObject.parkingSpot
         : booking.parkingSpot;
     booking.updatedAt = new Date();
 
