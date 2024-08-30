@@ -34,6 +34,25 @@ export async function getBookingById(
   return dbRowToBooking(result.rows[0]);
 }
 
+/**
+ * Returns all bookings from database
+ * @returns Booking[]
+ */
+export async function getAllBookingsForUser(
+  userId: number
+): Promise<Booking[]> {
+  const result = await pool.query(
+    `SELECT * FROM "Booking" WHERE created_by_user = $1`,
+    [userId]
+  );
+
+  if (!result.rowCount) {
+    return [];
+  }
+
+  return result.rows.map(dbRowToBooking);
+}
+
 type CreateBookingType = Pick<
   Booking,
   "createdByUser" | "startDateTime" | "endDateTime" | "parkingSpot"
@@ -83,6 +102,11 @@ export async function deleteBooking(id: number): Promise<void> {
   await pool.query(`DELETE FROM "Booking" WHERE id = $1`, [id]);
 }
 
+/**
+ * Converts database row into Booking object
+ * @param row database row
+ * @returns Booking object
+ */
 function dbRowToBooking(row: Record<string, string>): Booking {
   return {
     id: parseInt(row["id"]),
